@@ -1,0 +1,2 @@
+# Entwicklung-eines-Fahrrad-Modulbaukastens
+Die Idee ist nun, einen Fahrrad Modulbaukasten zu entwickeln, der durch Kombination verschiedener Module die unterschiedlichen Einsatzzwecke abbildet. Ausgangspunkt bzw. Basis der Entwicklung soll das Faltrad tern Verge P10“ sein, das zu einem E Bike und zu einem dreirädrigen Lastenrad mit Neigetechnik, sowie zu einem Dreirad für bewegungseingeschränkte Menschen umgebaut werden kann. 
