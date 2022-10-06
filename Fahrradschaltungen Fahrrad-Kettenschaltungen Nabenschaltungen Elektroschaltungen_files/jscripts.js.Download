@@ -1,0 +1,45 @@
+//######################## location reload um Weiterleitungen zu zählen  ###############
+
+
+
+function counter(u){
+	var xmlHttp = false;
+	xmlHttp = new XMLHttpRequest();
+	if (xmlHttp) {
+		xmlHttp.open('GET', u, true);
+		xmlHttp.onreadystatechange = function () {
+			if (xmlHttp.readyState == 4) {
+				window.location.href = u;
+			}
+		};
+		xmlHttp.send(null);
+	}
+}
+
+var zoom = 0;
+
+function zoomIn(){
+	zoom++;
+	size = 100.1 + (zoom*20);
+	nav = navigator.appVersion;
+	if(navigator.appName == "Microsoft Internet Explorer"  && zoom ==2) {
+		document.getElementById('headerright').style.width = '11.9em';
+	}
+	else document.getElementById('headerright').style.width = '12em';
+	document.getElementsByTagName("body")[0].style.fontSize = size + '%';
+	document.getElementById('zoomOut').style.display = 'inline';
+}
+
+function zoomOut(){
+	zoom--;
+	size = 100.1 + (zoom*20);
+	if(navigator.appName == "Microsoft Internet Explorer"  && zoom ==2) {
+		document.getElementById('headerright').style.width = '11.9em';
+	}
+	else document.getElementById('headerright').style.width = '12em';
+	document.getElementsByTagName("body")[0].style.fontSize = size + '%';
+	if (zoom == 0) {
+		document.getElementById('zoomOut').style.display = 'none';
+		return;
+	}
+}

@@ -1,0 +1,1145 @@
+html[xmlns^="http"]{
+	overflow-y: scroll; /* Mozilla-Scrollbar erzwingen */
+}
+
+html {
+	height:100%;
+	color:#000000;
+	background-color:#FBF1BF;
+}
+
+body {
+	position: relative;
+	font-size: 100.01%; /* Rundungsfehler beheben (1em = 16px) */
+	font-family: verdana, sans-serif;
+	width: 62.5em;
+	height:100%;
+	padding:0;
+	background-color:#FFFFCF;
+}
+
+div#website{
+    min-height: 100%;
+    height: auto !important;
+    height: 100%;
+	position: relative;
+	width: 62.5em;
+	text-align: left;
+	background-color:#fffad6;
+	background-repeat: repeat-x;
+	background-position: left top;
+	background-image: url(../Images/bg_html.gif);
+	border-right:1px solid #999;
+	border-left:1px solid #999;
+}
+
+#adsenseTop {
+	width: 62.5em;
+	height: 100px;
+}
+
+/* ####################################################### */
+/* #### Raster / Seitenaufteilung ######################## */
+
+div#logo{
+	position:absolute;
+	left:0;
+	top:0;
+	width: 62.5em;
+	height:64px;
+	background-repeat: no-repeat;
+	background-position: 12px 38px;
+	background-image: url(../Images/info-portal.gif);
+	text-align:right;
+	z-index:2;
+
+}
+
+div#navigation{
+	position:absolute;
+	top:0;
+	z-index:1;
+	height:100%;
+	width:11.5em;
+	background-color:#e4c255;
+	background-repeat: repeat-x;
+	background-position: left top;
+	background-image: url(../Images/bg_html.gif);
+}
+
+div#navigation ul > li {
+	background-color:#e4c255;
+}
+
+div#contentcolumns{
+	width:51em;
+	margin-top:64px;
+	float:right;
+
+}
+
+div#contentcolumns>header{
+	background-color:#c7a754;
+	width:51em;
+}
+div#headerleft{
+	float:left;
+	border-top:2em solid #ECD175;
+	width:39em;
+	overflow:hidden;
+	background-color:#c7a754;
+}
+
+div#headerleft h1 {
+	line-height:1.6em;
+	margin:0;
+}
+
+div#headerleft img{
+	width:630px;
+	height:161px;
+	display:block;
+
+}
+
+
+div#headerright{
+	float:right;
+	width:12em;
+	overflow:hidden;
+	background-color:#e9c85d;
+}
+
+span.headerWrap {
+	display: block;
+	padding: 7px;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+#rechteSpalte span.headerWrap {
+	background-color: #fff;
+	border-bottom: 1px dashed black;
+	text-align: center;
+}
+
+#page_home .iconWrapper {
+	padding-left: 2em;
+	padding-top: 1em;
+}
+
+#page_home .iconWrapper a {
+    display: block;
+    background-repeat: no-repeat;
+    float: left;
+    width: 155px;
+    padding: 30px 20px 35px 50px;
+    font-size: 13px;
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+    text-align: right;
+    margin-right: 35px;
+}
+
+#page_home a.mtb {
+    background-image: url(../Images/startseite/mtb.gif);
+}
+
+#page_home a.trekking {
+    background-image: url(../Images/startseite/trekking.gif);
+}
+
+#page_home a.rennrad {
+    background-image: url(../Images/startseite/rennrad.gif);
+}
+
+#page_home a.hotels {
+    background-image: url(../Images/startseite/radhotels.gif);
+}
+
+.searchButton#extSearch {
+    background-image: url(../Images/differenziertesuche.gif);
+    background-position: 18px;
+}
+
+.searchButton#countryNew {
+    background-image: url(../Images/radreisen.gif);
+    background-position: -6px;
+    text-align: center;
+}
+
+.searchButton#quickSearch {
+    background-image: url(../Images/schnelltextsuche.gif);
+    background-position: -6px;
+    text-align: center;
+}
+
+.button#gastgeberButton {
+    background-image: url(../Images/fahrradunterkuenfte.gif);
+    padding-left: 52px;
+    text-align: left;
+}
+
+#page_home a.books {
+    background-image: url(../Images/startseite/shop.gif);
+    padding-right: 10px;
+    padding-left: 40px;
+    width: 175px;
+}
+
+#page_home a.aktuelles {
+    background-image: url(../Images/startseite/aktuelles.gif);
+}
+
+#page_home h3 {
+	margin:0;
+	color:#000;
+	font-size:8pt;
+}
+/*### added by ndh ###*/
+div#zoom {
+	text-align:center;
+	height:2em;
+	background-color: #f7ecca;
+}
+
+div#zoom a {
+	font-size:0.8em;
+	text-decoration:none;
+	color:#000;
+}
+
+div#zoom a img {
+	margin:0.5em;
+}
+
+span#zoomOut {
+	display:none;
+}
+
+
+#maincontent{
+	margin: 1em;
+	margin-right:0;
+}
+
+#website footer {
+	padding:2em 0 1em 1.75em;
+    clear: both;
+}
+
+#website footer a {
+	text-decoration:none;
+}
+
+div.clearer{
+	clear:both;
+	height:0;
+	overflow:hidden;
+}
+
+/* ####################################################### */
+/* #### Allgemein: Schriften, Listen, Links u. Bilder #### */
+
+img{
+	margin:0;
+	padding:0;
+	border:none;
+}
+
+div.csc-textpic-border div.csc-textpic-imagewrap .csc-textpic-image img {
+	border:1px solid #999;
+	padding:0px;
+}
+
+div#headerleft h2 {
+	margin:0;
+	padding:0 1em 0 1em;
+	font-size:1.2em;
+	color:#9f0200;
+	line-height:2em;
+}
+
+
+
+h1{
+	margin:0;
+	padding:0 1em 0 1em;
+	font-size:1.2em;
+	color:#9f0200;
+	margin-bottom:1em;
+}
+
+#maincontent h1{
+	padding:0;
+}
+
+h2,h3{
+	margin-top:0;
+	font-size:1.2em;
+	color:#9f0200;
+	line-height:1em;
+    clear: both;
+}
+
+h3 {
+	margin-top:1em;
+}
+
+h4,h5,h6{
+	font-size:1.1em;
+	color:#9f0200;
+	line-height:1em;
+}
+
+#maincontent,
+aside #rechteSpalte,
+footer{
+	font-size:0.75em;
+	line-height:1.5em;
+	padding-left:0.75em;
+}
+
+#rechteSpalte {
+	line-height:1.5em;
+	padding-left:0.75em;
+}
+
+#maincontent p{
+	padding-right:0.75em;
+    clear: both;
+}
+
+#maincontent .tx-ndhbiketours-pi2 p{
+    clear: none;
+}
+
+
+#maincontent a,
+#rechteSpalte a,
+footer a{
+	color:#9f0200 !important;
+}
+
+#maincontent span.detail a,
+#maincontent a.detail{
+	text-decoration:none;
+	color:#000;
+}
+
+
+form input,
+form select{
+	margin: 0 0 0.25em 0;
+}
+
+
+div.frame-type-form_formframework label{
+	float:left;
+	width:15em;
+	padding-left:0.3em;
+    display: block;
+}
+
+div.frame-type-form_formframework textarea {
+    width: 14.2rem;
+}
+
+div.frame-type-form_formframework .form-group {
+    margin-bottom: 1rem;
+}
+
+#maincontent label.tx_formslib-label {
+	font-family:Verdana,Helvetica,sans-serif;
+}
+
+fieldset.csc-mailform {
+	border:none;
+}
+
+#mailform .csc-mailform-field {
+	margin-bottom: 20px;
+}
+
+#mailform .csc-mailform-field input[type=text],
+#mailform .csc-mailform-field textarea{
+	width:250px;
+}
+
+table{
+	border-collapse:collapse;
+}
+
+ td {
+	vertical-align:top;
+}
+table.contenttable {
+	margin-right:1em;
+
+}
+table.contenttable td {
+	border:1px solid #9f0200;
+	text-align:left;
+	padding:0.5em;
+
+}
+
+table.contenttable td  p {
+	margin-top:0;
+}
+
+table.nav_table,
+table.nav_table {
+	margin-right:1em;
+	text-align:center;
+	vertical-align:top;
+}
+
+table.nav_table td {
+	border:1px solid #9f0200;
+}
+
+div.csc-textpic-text {
+	width:48em;
+}
+
+
+div.csc-textpic-caption, div.csc-textpic-imagewrap {
+	font-style:italic;
+}
+
+div.csc-textpic-intext-right-nowrap .csc-textpic-imagewrap,
+div.csc-textpic-intext-right .csc-textpic-imagewrap{
+	width:16em;
+}
+
+div.logoutbox {
+	height:7em;
+	background-color:#4D87D9;
+	color:#FFF;
+	font-size:0.75em;
+	padding-top:1em;
+}
+
+div.logoutbox a {
+	color:#FFF;
+	padding-left:2em;
+	line-height:2em;
+	text-decoration:none;
+}
+
+div#navigation ul li#li_administration,
+div#navigation ul li#li_administration ul,
+div#navigation ul li#li_administration ul li,
+div#navigation ul li#li_administration a,
+div#navigation ul li#li_administration a:hover {
+	background-color:#4D87D9;
+}
+
+
+div.logoutbox input{
+	color:#FFF;
+	background-color:#4D87D9;
+	text-decoration:underline;
+	border:none;
+	width:8em;
+	cursor:pointer;
+	font-size:1.2em;
+	padding:0;
+	margin:0;
+	color:yellow;
+	font-weight:bold;
+}
+
+/*################ Rahmen ####################*/
+
+#maincontent div.csc-frame-rulerBefore {
+	border-top:2px solid #c7a754;
+	margin-top:2em;
+}
+
+.csc-frame-rulerBefore > h2 {
+    margin-top: 1em;
+}
+
+/*#############  Rhamen um SEO Links ################*/
+
+div.frame-indent-right {
+    width: 100%;
+    clear: both;
+}
+
+div.frame-indent-right .ce-bodytext{
+	border-top:1px solid #DCB11F;
+	color:#555;
+	font-size:0.85em;
+    width: 100% !important;
+}
+
+#maincontent div.frame-indent-right p {
+	font-size:1.1em;
+}
+
+#maincontent div.frame-indent-right a,
+div#keywords_frontend a{
+	text-decoration:none;
+	color: #9f0200;
+}
+
+
+div#keywords_frontend  a:hover,
+#maincontent div.frame-indent-right a:hover {
+	text-decoration:underline;
+}
+
+/*#################### Buttons ########################*/
+
+#mailformformtype_mail,
+input.tx-newloginbox-pi1-submit,
+input.tx-srfeuserregister-pi1-submit,
+input.shop_button,
+input.button,
+.tx_formslib-submitbuttons input,
+input.tx-ndhbiketours-pi2-searchbox-button {
+	background-color:#F0D376;
+	padding:0.3em 0.7em;
+	font-weight:bold;
+}
+
+input.tx-ndhbiketours-pi2-searchbox-sword {
+    padding: 0.3em;
+    border: 1px solid #333;
+}
+
+.tx-ndhbiketours-pi2-searchbox-sword .tx-ndhbiketours-pi2-searchbox-button {
+    border: 1px solid #333;
+}
+
+#mailformformtype_mail {
+	position: absolute;
+	right: 415px;
+}
+
+.csc-mailform-field label[for='mailformagb'] {
+	float: none;
+}
+
+body#page_tour-editor .csc-mailform-field,
+body#page_reise-veranstalter .csc-mailform-field {
+	padding-top: 1.8em;
+	border-top: 1px solid #999;
+}
+
+body#page_tour-editor .csc-mailform-field label ,
+body#page_reise-veranstalter .csc-mailform-field label {
+	width: 15em;
+}
+
+div.tx-ndhbiketours-pi2 input.button{
+	background-color:yellow;
+	border:2px solid #666;
+}
+
+#maincontent a.important {
+	background-color:#F0D376;
+	padding:0.5em 1em;
+	color:#000;
+	border:1px solid #666;
+	text-decoration:none;
+	display:block;
+	width:18em;
+	margin-top:1em;
+}
+
+/* ################ Suchbox ########################### */
+
+div#searchblock form{
+	margin:0;
+	padding: 0.6em 0 0 0;
+}
+
+div#searchblock{
+	height:7.5em;
+	padding:0 1em 0 1em;
+}
+
+div#searchblock select,
+div#searchblock input {
+	background-color:#FFFAD6;
+	width:10.8em;
+	margin:0.2em 0;
+	padding:0.2rem;
+}
+
+div#searchblock input#txtsearch {
+    width: 10.3em;
+    border: 1px solid #333;
+    padding: 0.2rem;
+}
+input.searchSubmitButton{
+	border:1px solid #AC8736;
+    padding: 0.2rem;
+	font-weight:bold;
+}
+
+span.csc-sword {
+	background-color:yellow;
+	color:red;
+}
+
+h6.listCountriesHeader {
+	margin-top:20px;
+}
+
+#newsletterLink {
+    background-color: #f7ecca;
+    padding: 0.4em 1em;
+}
+
+#newsletterLink a {
+    text-decoration: none;
+    color: #000;
+    font-size: 0.75em;
+}
+
+/* ###############  Registrierung #####################*/
+
+.tx-srfeuserregister-pi1 table td {
+	border-bottom:1px solid #999;
+	color:#000;
+}
+
+div.tx-srfeuserregister-pi1 table td input {
+	border:1px solid #666;
+}
+
+/*  for statistics  */
+
+table.ndh_statistics {
+	width:95%;
+}
+
+table.ndh_statistics td{
+	border:1px solid #999;
+	padding-left:0.3em;
+}
+
+table.ndh_statistics tr.header td{
+	background-color:#F0D376;
+	font-weight:normal;
+}
+
+/*############## Suche ##################################*/
+
+div.tx-indexedsearch-browsebox {
+    margin-bottom: 2rem;
+}
+
+ul.tx-indexedsearch-browsebox {
+    padding: 0.5rem 0
+}
+
+.tx-indexedsearch-browsebox li {
+    display: inline-block;
+    float: left;
+    margin-right: 1rem;
+}
+
+
+/* ############################################################ */
+/* #### Icon ################################################## */
+
+div.icon{
+	display:block;
+	position:relative;
+	width:22em;
+	height:5em;
+	margin: 2em 0;
+	float:left;
+}
+
+#maincontent div.iconWrapper div.leftMargin a.txt{
+	left:8em;
+}
+
+
+#maincontent div.icon a.txt{
+	position:absolute;
+	left:5.5em;
+	top:2.5em;
+	font-size:1em;
+	font-weight:bold;
+	display:block;
+	width:14.5em;
+	color:#000000;
+	text-decoration:none;
+}
+
+#maincontent div.singleline a.txt{
+	top:2.6em;
+}
+
+
+
+
+/* ############################################################ */
+/* #### Hauptnavigation ####################################### */
+
+div#navigation ul{
+	margin:6em 0;
+	border-top:0 solid #e4c255;
+	padding:0 0 1px 0;
+	list-style: none;
+	background-repeat: repeat-x;
+	background-position: left bottom;
+	background-image: url(../Images/line-ffffff.gif);
+}
+div#navigation ul ul{
+	margin:0;
+	padding:0 0 0 0;
+	border:none;
+	background:none;
+
+}
+
+div#googlePlusButton {
+	padding: 3px 10px 4px;
+	position: absolute;
+	top:5.5em;
+}
+
+div#navigation ul li{
+	font-size:0.75em;
+	line-height:1.5em;
+}
+div#navigation ul ul li{
+	font-size:1em;
+	line-height:1.5em;
+}
+
+div#navigation ul li a{
+	text-decoration:none;
+	display:block;
+	padding:0.5em;
+	color:#000000;
+	background-repeat: repeat-x;
+	background-position: left top;
+	background-image: url(../Images/line-ffffff.gif);
+}
+
+div#headerright ul li.act,
+div#navigation ul li.act{
+	background-color:#AC8736;
+}
+
+div#headerright ul li.act a,
+div#navigation ul li.act a,
+div#navigation ul li a:hover{
+	font-weight:bold;
+	color:#ffffff;
+	background-color:#AC8736;
+}
+
+
+div#navigation ul li.act li a,
+div#navigation ul li.act ul li.act ul li  a{
+	font-weight:normal;
+	padding:1px 0 0 1.5em;
+	background:none;
+	border-top:1px solid #FFF;
+	padding-top:0;
+}
+
+div#navigation ul li.act ul li.act ul li  a{
+	font-weight:normal;
+	padding:0 0 0 2.5em;
+}
+
+
+
+div#navigation ul ul li.act a,
+div#navigation ul li.act ul li.act ul li.act  a,
+div#navigation ul ul li a:hover{
+	font-weight:normal;
+	background-repeat: no-repeat;
+	background-position: 0.8em 0.4em;
+	background-image: url(../Images/nav_arrow.gif);
+
+}
+
+div#navigation ul li.act ul li.act ul li.act  a{
+	background-position: 2em 0.4em;
+}
+
+div#navigation ul li#li_warenkorb{
+	background-color:#66ff00;
+}
+
+div#navigation ul li#li_warenkorb a {
+	color:#000;
+}
+
+/* ############################################################ */
+/* #### Meta-Navigation (oben rechts) ######################### */
+
+div#headerright ul{
+	margin:0;
+	padding:0;
+	list-style: none;
+}
+div#headerright ul li{
+	font-size:0.75em;
+	line-height:2em;
+}
+div#headerright ul li a{
+	text-decoration:none;
+	display:block;
+	padding:0 1em 0 1em;
+	color:#000000;
+	background-repeat: repeat-x;
+	background-position: left top;
+	background-image: url(../Images/line-ffffff.gif);
+}
+div#headerright ul li a:hover{
+	font-weight:bold;
+	color:#ffffff;
+	background-color:#AC8736;
+}
+
+
+/*********************************************/
+
+/*************  Linkliste ************/
+
+#maincontent div.tx-cmwlinklist-pi1 a.blue {
+	color:#4D87D9;
+}
+
+#maincontent  div.breadcrum a {
+	font-weight:bold;
+}
+
+div.breadcrum {
+	margin-bottom:1.5em;
+}
+
+tr.categoryList td {
+	height:1.8em;
+}
+
+td.buttonCell input {
+	background-color:#F0D376;
+	padding:0.3em 0.7em;
+	font-weight:bold;
+}
+
+td.descriptionLabel {
+	width:12em;
+	padding-right:1em;
+}
+
+
+/***********     rechte Spalte    *******/
+@media all and (min-width:75em ) {
+
+	div#rechteSpalte {
+		position: absolute;
+		top: 0;
+		right: -20em;
+		width: 20em;
+		height:100%;
+	}
+
+	div#rechteSpalte .content {
+		box-shadow: 5px 5px 10px 5px #777;
+		margin: 64px 1em 1em 1em;
+		width:15em;
+		border: 4px solid white;
+	}
+
+	div#rechteSpalte .content p {
+		padding:5px;
+	}
+
+	div#rechteSpalte .content h2,
+	div#rechteSpalte .content h3,
+	div#rechteSpalte .content h4,
+	div#rechteSpalte .content h5,
+    div#rechteSpalte .content h6{
+		background-color: white;
+		padding: 5px;
+		line-height: 1.5em;
+		color:#333;
+		font-size:10pt;
+		border-bottom:#136F8B  dashed 1px;
+		text-align:center;
+	}
+
+	div#rechteSpalte div.csc-textpic-text {
+		width:auto;
+	}
+
+}
+
+
+h1.tx_ndhbiketour-headline,
+h1.tour_header{
+	line-height:1.5em;
+	padding-top:0.5em;
+	padding-bottom:0.5em;
+}
+
+
+div.tx-ndhbiketours-pi2-singleView p.tx-ndhbiketours-pi2-singleViewField-text{
+	line-height:1.5em;
+}
+
+#toggleMenu {
+    display: none;
+}
+
+@media all and (max-width: 1023px){
+    body {
+        width: 100%;
+        font-size: 110%;
+        margin:0;
+    }
+
+	#adsenseTop {
+		width: 100%;
+		height: 100px;
+	}
+
+    #page_home h3,
+    #maincontent {
+        font-size: inherit;
+        width: 90%;
+        margin: 0;
+    }
+    div.csc-textpic-text {
+        width: auto;
+    }
+    #maincontent a {
+        line-height: 40px;
+    }
+
+    #maincontent a.button {
+            line-height: 20px;
+        }
+
+    div#website,
+    div#contentcolumns,
+    header,
+    div#logo {
+        width: 100%;
+    }
+    header {
+        height: 30px;
+    }
+    div#logo {
+        text-align: left;
+        background: none;
+        background-color: #fff;
+    }
+    div#logo img {
+        padding-left:5px;
+    }
+    #toggleMenu {
+        display: block;
+        border: 2px solid #DCB11F;
+        text-decoration: none;
+        color: #9f0200;
+        background-color: #DCB11F;
+        text-align: center;
+        font-size: 30px;
+    }
+    div#navigation {
+        display:none;
+        width: 100%;
+    }
+    div#navigation li {
+        min-height: 30px;
+    }
+    #headerleft,
+    #headerright {
+        display: none;
+    }
+
+    /** list views */
+
+    .tx-ndhbiketours-pi2 {
+        line-height: 30px;
+    }
+
+    table.search_results tr {
+        border-bottom: 1px solid grey;
+    }
+
+    /** single view */
+    div.tx-ndhbiketours-pi2-singleView,
+    table.tx-ndhbiketours-pi2-infoTable{
+        width: 100%;
+    }
+
+    .tx-ndhbiketours-pi2-infoTable{
+        margin-top: 20px;
+    }
+
+    .tx-ndhbiketours-pi2-singleView div.buttonWrapper {
+        position: relative;
+        width: 100%;
+        min-height: 70px;
+    }
+
+    .tx-ndhbiketours-pi2-singleView div.buttonWrapper .button {
+        float: left;
+    }
+}
+
+#page_radreise0 #adsenseTop,
+.parent_4 #adsenseTop,
+.parent_27 #adsenseTop,
+.parent_2241 #adsenseTop,
+.parent_1360 #adsenseTop,
+#page_ggregistrierungde #adsenseTop,
+#page_infos-gp #adsenseTop{
+	display: none;
+}
+
+.cc-window{opacity:1;transition:opacity 1s ease}.cc-window.cc-invisible{opacity:0}.cc-animate.cc-revoke{transition:transform 1s ease}.cc-animate.cc-revoke.cc-top{transform:translateY(-2em)}.cc-animate.cc-revoke.cc-bottom{transform:translateY(2em)}.cc-animate.cc-revoke.cc-active.cc-bottom,.cc-animate.cc-revoke.cc-active.cc-top,.cc-revoke:hover{transform:translateY(0)}.cc-grower{max-height:0;overflow:hidden;transition:max-height 1s}
+.cc-link,.cc-revoke:hover{text-decoration:underline}.cc-revoke,.cc-window{position:fixed;overflow:hidden;box-sizing:border-box;font-family:Helvetica,Calibri,Arial,sans-serif;font-size:16px;line-height:1.5em;display:-ms-flexbox;display:flex;-ms-flex-wrap:nowrap;flex-wrap:nowrap;z-index:9999}.cc-window.cc-static{position:static}.cc-window.cc-floating{padding:2em;max-width:24em;-ms-flex-direction:column;flex-direction:column}.cc-window.cc-banner{padding:1em 1.8em;width:100%;-ms-flex-direction:row;flex-direction:row}.cc-revoke{padding:.5em}.cc-header{font-size:18px;font-weight:700}.cc-btn,.cc-close,.cc-link,.cc-revoke{cursor:pointer}.cc-link{opacity:.8;display:inline-block;padding:.2em}.cc-link:hover{opacity:1}.cc-link:active,.cc-link:visited{color:initial}.cc-btn{display:block;padding:.4em .8em;font-size:.9em;font-weight:700;border-width:2px;border-style:solid;text-align:center;white-space:nowrap}.cc-banner .cc-btn:last-child{min-width:140px}.cc-highlight .cc-btn:first-child{background-color:transparent;border-color:transparent}.cc-highlight .cc-btn:first-child:focus,.cc-highlight .cc-btn:first-child:hover{background-color:transparent;text-decoration:underline}.cc-close{display:block;position:absolute;top:.5em;right:.5em;font-size:1.6em;opacity:.9;line-height:.75}.cc-close:focus,.cc-close:hover{opacity:1}
+.cc-revoke.cc-top{top:0;left:3em;border-bottom-left-radius:.5em;border-bottom-right-radius:.5em}.cc-revoke.cc-bottom{bottom:0;left:3em;border-top-left-radius:.5em;border-top-right-radius:.5em}.cc-revoke.cc-left{left:3em;right:unset}.cc-revoke.cc-right{right:3em;left:unset}.cc-top{top:1em}.cc-left{left:1em}.cc-right{right:1em}.cc-bottom{bottom:1em}.cc-floating>.cc-link{margin-bottom:1em}.cc-floating .cc-message{display:block;margin-bottom:1em}.cc-window.cc-floating .cc-compliance{-ms-flex:1;flex:1}.cc-window.cc-banner{-ms-flex-align:center;align-items:center}.cc-banner.cc-top{left:0;right:0;top:0}.cc-banner.cc-bottom{left:0;right:0;bottom:0}.cc-banner .cc-message{-ms-flex:1;flex:1}.cc-compliance{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-line-pack:justify;align-content:space-between}.cc-compliance>.cc-btn{-ms-flex:1;flex:1}.cc-btn+.cc-btn{margin-left:.5em}
+@media print{.cc-revoke,.cc-window{display:none}}@media screen and (max-width:900px){.cc-btn{white-space:normal}}@media screen and (max-width:414px) and (orientation:portrait),screen and (max-width:736px) and (orientation:landscape){.cc-window.cc-top{top:0}.cc-window.cc-bottom{bottom:0}.cc-window.cc-banner,.cc-window.cc-left,.cc-window.cc-right{left:0;right:0}.cc-window.cc-banner{-ms-flex-direction:column;flex-direction:column}.cc-window.cc-banner .cc-compliance{-ms-flex:1;flex:1}.cc-window.cc-floating{max-width:none}.cc-window .cc-message{margin-bottom:1em}.cc-window.cc-banner{-ms-flex-align:unset;align-items:unset}}
+.cc-floating.cc-theme-classic{padding:1.2em;border-radius:5px}.cc-floating.cc-type-info.cc-theme-classic .cc-compliance{text-align:center;display:inline;-ms-flex:none;flex:none}.cc-theme-classic .cc-btn{border-radius:5px}.cc-theme-classic .cc-btn:last-child{min-width:140px}.cc-floating.cc-type-info.cc-theme-classic .cc-btn{display:inline-block}
+.cc-theme-edgeless.cc-window{padding:0}.cc-floating.cc-theme-edgeless .cc-message{margin:2em 2em 1.5em}.cc-banner.cc-theme-edgeless .cc-btn{margin:0;padding:.8em 1.8em;height:100%}.cc-banner.cc-theme-edgeless .cc-message{margin-left:1em}.cc-floating.cc-theme-edgeless .cc-btn+.cc-btn{margin-left:0}
+
+.cc-grower {
+	position: fixed;
+	bottom: 0;
+	z-index: 100;
+}
+
+.cc-color-override-676695334 .cc-btn:hover, .cc-color-override-676695334 .cc-btn:focus {
+    background-color: rgba(58, 222, 49, 0.76) !important;
+}
+
+.ce-textpic, .ce-image, .ce-nowrap .ce-bodytext, .ce-gallery, .ce-row, .ce-uploads li, .ce-uploads div {
+    overflow: visible;
+}
+
+#maincontent .ce-textpic.ce-right.ce-intext .ce-bodytext {
+    width: 46em;
+    float: left;
+}
+
+#maincontent .ce-textpic.ce-right.ce-intext .ce-gallery {
+    max-width: 18em;
+    clear: both;
+}
+
+#maincontent .ce-textpic.ce-right.ce-intext .ce-gallery img {
+    max-width: 18em;
+    height: auto;
+}
+
+#maincontent {
+    max-width: 66em;
+}
+
+.tx-felogin-pi1 label {
+    min-width: 8rem;
+    display: block;
+    float: left;
+}
+
+
+div#imageMapWrapper {
+	float:left;
+	width:300px;
+	clear:both;
+	background-color:#FFF;
+	padding:2em;
+	border:1px solid #666;
+	margin-bottom:2em;
+}
+
+div#zoneWrapper {
+	background-color:#FFFFFF;
+	border:1px solid #666666;
+	width:75%;
+}
+
+div.tx-ndhbiketours-pi2 div#imageMapWrapper {
+	border:none;
+}
+
+div#imageMapWrapper h3{
+	color:#999;
+}
+
+div#countrymap-de {
+	margin-top:20px;
+	margin-left:30px;
+	width:205px;
+	height:262px;
+	background-image: url(../Images/imagemaps/country-54.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+	margin-bottom:40px;
+}
+
+div.tx-ndhbiketours-pi2 div#countrymap-de {
+	margin-bottom:0;
+	padding-bottom:0;
+}
+
+div#countrymap-at{
+	width:300px;
+	height:155px;
+	background-image: url(../Images/imagemaps/country-13.gif);
+	background-repeat: no-repeat;
+	background-position: left top;
+
+}
+div#currentregion-de{
+	width:205px;
+	height:262px;
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+div#currentregion-at{
+	width:300px;
+	height:155px;
+	background-repeat: no-repeat;
+	background-position: left top;
+}
+
+div.zoneLists {
+	width:200px;
+	float:left;
+	padding-left:100px;
+}
+
+div.zoneList {
+	margin-bottom:20px;
+}
+
+div.zoneList a {
+	display:block;
+	text-decoration:none;
+}
+
+div.tx-ndhbiketours-pi2 div.zoneList {
+	margin-top:25px;
+}
+
+.tt_products_table a {
+    margin-left: 0.7rem;
+}
+
+#page_radreise0 .ce-bodytext ul li {
+    line-height: 1.5rem;
+    list-style-image: url('/fileadmin/images/arrow.gif');
+    padding-left: 0.5rem;
+}

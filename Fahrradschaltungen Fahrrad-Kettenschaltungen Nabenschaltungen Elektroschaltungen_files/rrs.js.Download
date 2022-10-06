@@ -1,0 +1,1172 @@
+/**
+ * @author ndh
+ */
+
+window.onload = onPageLoaded;
+
+var currentCategory, currentPid;
+var cookieName = 'radreise-merkzettel';
+var expireCookieName = 'radreise-expire-time';
+var watchListLinkText = 'Merkzettel<br />anzeigen';
+var addToWatchListText = 'Zum Merkzettel<br />hinzufügen';
+var addedToWatchlistMessage = 'Der Eintrag wurde dem Merkzettel hinzugefügt';
+var alreadyInWatchlistMessage = 'Dieser Eintrag befindet sich bereits auf dem Merkzettel';
+var removedFromWatchlistMessage = 'Der Eintrag wurde vom Merkzettel entfernt';
+var expireTime = 'session';
+var menuVisible = false;
+
+function toggleMenu() {
+    if(menuVisible) {
+        getEl('navigation').style.display = 'none';
+        menuVisible = false;
+    } else {
+        getEl('navigation').style.display = 'block';
+        menuVisible = true;
+    }
+}
+
+function initMerkzettel() {
+	setHiddenInputField();
+}
+
+function addToWatchList(uid, category, silent) {
+	if (typeof uid == 'undefined') {
+		uid = currentUid;
+		category = currentCategory;
+	}
+	status = setCookie(cookieName, category + '_' + uid);
+	if (silent)return true;
+	alert(addedToWatchlistMessage);
+
+	if (getEl('watchListLink_top')) {
+		var watchListLink = getEl('watchListLink_top');
+		watchListLink.innerHTML = watchListLinkText;
+        watchListLink.setAttribute("onclick", "window.location.href='/merkzettel.html';return false;");
+		watchListLink.blur();
+		getEl('merkzettel_link').style.display = '';
+	}
+	return false;
+}
+
+function removeFromWatchList(uid, category) {
+	unsetCookie(cookieName, category + '_' + uid);
+	if (getCookie(cookieName) == false) {
+		deleteCookie();
+		window.location.reload();
+	}
+	currentUid = uid; // in case the add Link is clicked again
+	currentCategory = category;
+	if (getEl(category + '_' + uid)) {
+		getEl(category + '_' + uid).style.display = 'none';
+	}
+	else {
+		alert(removedFromWatchlistMessage);
+		var watchListLink = getEl('watchListLink_top');
+		watchListLink.innerHTML = addToWatchListText;
+        watchListLink.setAttribute("onclick", 'return addToWatchList(' + uid + ',"' + category + '");');
+
+	}
+
+	return false;
+}
+
+
+function setHiddenInputField() {
+	if (typeof items != 'undefined') {
+		var newValues = [];
+		// this means we are on the form page
+		for (var i = 0; i < items.length; i++) {
+			if (typeof items[i] != 'undefined') {
+				newValues.push(items[i].title);
+			}
+
+		}
+		var newValue = newValues.join("\n");
+		if (getEl('items')) {
+			getEl('items').value = newValue;
+		}
+		else {
+			//getEl('mailform').insertBefore(createInputElement('Anfrage zu', 'destinations', 'hidden', newValue), getEl('mailform').childNodes[0]);
+		}
+	}
+}
+
+function createInputElement(name, id, type, value) {
+	var el = document.createElement("input");
+	el.setAttribute("name", name);
+	el.setAttribute("id", id);
+	el.setAttribute("type", type);
+	el.setAttribute("value", value);
+	return el;
+}
+
+function getEl(id) {
+	return document.getElementById(id);
+}
+
+function deleteCookie() {
+	document.cookie = cookieName + '=';
+	document.cookie = expireCookieName + '=';
+	window.location.reload();
+	return false;
+}
+
+function setCookie(cookieName, cookieValue, overwrite, path) {
+
+	if (typeof path == 'undefined') {
+		path = '/';
+	}
+
+	if (typeof overwrite == 'undefined') {
+		var currentValue = getCookie(cookieName);
+		if (currentValue != false) {
+			currentValue = currentValue + '';
+			var temp = currentValue.split(',');
+
+			if (inArray(temp, cookieValue)) {
+				return 'exists';
+			}
+			else
+				if (currentValue) {
+					cookieValue = currentValue + ',' + cookieValue;
+				}
+		}
+	}
+	//else debug('overwrite:' + overwrite);
+	cookie = cookieName + '=' + escape(cookieValue) + ";path=" + path;
+	if (expireTime != 'session') {
+		var today = new Date();
+		var expire = new Date();
+		if (expireTime != 'session') {
+			nDays = expireTime;
+		}
+		expire.setTime(today.getTime() + 3600000 * 24 * nDays);
+		var expireDate = expire.toGMTString();
+
+		//getEl('expireDate').innerHTML = expire.getDate() + '.' + (expire.getMonth() + 1) + '.' + expire.getFullYear();
+		cookie += ";expires=" + expireDate;
+
+		//expire_date:' + (today.getTime() + 3600000*24*nDays)
+	}
+	document.cookie = cookie;
+	if (expireTime != 'session' && cookieName != expireCookieName) {
+		// set a second cookie to enable server side detection of expire date
+		// needed for messages
+		setCookie(expireCookieName, expireDate, 1);
+	}
+}
+
+function setCookieExpireTime(nDays) {
+
+	cookieValue = getCookie(cookieName);
+	expireTime = nDays;
+	setCookie(cookieName, cookieValue, 1);
+	alert('Der Merkzettel ist nun auf diesem Computer dauerhaft gespeichert');
+	getEl('expireHint1').style.display = 'none';
+	getEl('expireHint2').style.display = 'block';
+}
+
+function unsetCookie(cookieName, cookieValue) {
+	var currentValues = getCookie(cookieName).split(',');
+	//document.cookie = cookieName + '=;expires=Thu, 01-Jan-1970 00:00:01 GMT';
+	setCookie(cookieName, removeFromArray(currentValues, cookieValue), true);
+}
+
+function getCookie(key) {
+	var pairs = document.cookie.split('; ');
+
+	for (var i = 0; i < pairs.length; i++) {
+		tmp = pairs[i].split('=');
+		if (key == tmp[0] && typeof tmp[1] != 'undefined') {
+			return unescape(tmp[1]);
+		}
+
+	}
+	return false;
+}
+
+
+function inArray(arr, val) {
+	var j = 0;
+	while (j < arr.length) {
+		if (arr[j] == val){
+		  return true;
+    }
+		j++;
+	}
+	return false;
+}
+
+function removeFromArray(arr, val) {
+	var newValues = [];
+	var j = 0;
+	while (j < arr.length) {
+		if (arr[j] != val){
+		  newValues.push(arr[j]);
+    }
+		j++;
+	}
+	return newValues;
+}
+
+function debug(m) {
+	if (typeof console != 'undefined') {
+		console.log(m);
+	}
+}
+
+function setFontScale() {
+	// screen.deviceXDPI
+	if (typeof screen.logicalXDPI != 'undefined') {
+		if (screen.logicalXDPI > 100)document.getElementsByTagName("body")[0].style.fontSize = '79.9%';
+	}
+}
+
+function hideBackButton() {
+	h = getEl('historyBackButton');
+	if (h && typeof history.length != "undefined") {
+		if (history.length < 2)h.style.display = 'none';
+	}
+}
+
+function onPageLoaded() {
+	hideBackButton();
+	if (getCookie(cookieName)) {
+		getEl('merkzettel_link').style.display = '';
+	}
+	if (getEl('expireHint')) {
+
+	}
+	if (!getEl('page_fahrradhotels-gastgeberliste')) {
+		addEventToExternalLinks();
+	}
+	if (getEl('tx_rrsgastgeber_pi2_tx_rrsgastgeber_items_teaser')) {
+		getEl('tx_rrsgastgeber_pi2_tx_rrsgastgeber_items_teaser').onkeyup = function () {
+			if (this.value.length > 750) {
+				alert('Bitte geben Sie nur maximal 750 Zeichen ein');
+				this.value = this.value.substring(0, 750);
+			}
+		};
+	}
+	if (document.getElementById('tx_ndhbiketours_pi1[country]')) {
+	  window.setTimeout(
+      ()  => {
+        var countrySelect = document.getElementById('tx_ndhbiketours_pi1[country]');
+        		countrySelect.innerHTML = '<option value="">Bitte wählen</option>' + countrySelect.innerHTML;
+      },
+      500
+    )
+
+	}
+	startfade();
+}
+
+function addEventToExternalLinks() {
+	var links = document.getElementsByTagName('a');
+	for (var i = 0; i < links.length; i++) {
+	  const url = links[i].href;
+		if (url.indexOf(window.location.host) < 0 && url.match(/https:\/\//) && !url.match(/amazon/)) {
+			if (!links[i].onclick) {
+				links[i].onclick = function () {
+					return countExternalClick(this.href.replace('http', '').replace('https', '').replace('://', ''));
+				}
+			}
+
+		}
+	}
+}
+
+/****************  Gastgeber *************/
+
+var currentEntryA = [];
+var currentEntryB = [];
+
+function expandEntry(uid) {
+	if (currentEntryA.length > 2) {
+		currentEntryA[0].style.display = 'none';
+		currentEntryA[0].parentNode.style.backgroundColor = '#FFF1BF';
+		removeClass(currentEntryA[0].parentNode, 'activeEntry');
+		currentEntryA.shift();
+	}
+	if (currentEntryB.length > 2) {
+		currentEntryB[0].style.display = 'none';
+		currentEntryB[0].parentNode.style.backgroundColor = '#FFF1BF';
+		removeClass(currentEntryA[0].parentNode, 'activeEntry');
+		currentEntryB.shift();
+	}
+	el = getEl('entryA' + uid);
+	el.style.display = '';
+	addClass(el.parentNode, 'activeEntry');
+	el.parentNode.style.backgroundColor = '#EFDB95';
+	currentEntryA.push(el);
+
+	el = getEl('entryB' + uid);
+	el.style.display = '';
+	el.parentNode.style.backgroundColor = '#EFDB95';
+	addClass(el.parentNode, 'activeEntry');
+	currentEntryB.push(el);
+}
+
+
+function addClass(element, value) {
+
+	if (!element.className) {
+
+		element.className = value;
+
+	}
+	else {
+
+		var newClassName = element.className;
+
+		newClassName += " ";
+
+		newClassName += value;
+
+		element.className = newClassName;
+
+	}
+
+}
+
+function pleaseWait() {
+	getEl('maincontent').innerHTML = 'Bitte warten, Ihre Zugriffs-Statistik wird ermittelt. Dieser Vorgang kann bis zu einer Minute dauern.<br />. . . ';
+	window.setInterval('addPoints()', 300);
+}
+
+function addPoints() {
+	getEl('maincontent').innerHTML += '. ';
+}
+
+function removeClass(ele, cls) {
+
+	if (hasClass(ele, cls)) {
+
+		var reg = new RegExp('(\\s|^)' + cls + '(\\s|$)');
+
+		ele.className = ele.className.replace(reg, ' ');
+
+	}
+
+}
+
+
+function hasClass(ele, cls) {
+
+	return ele.className.match(new RegExp('(\\s|^)' + cls + '(\\s|$)'));
+
+}
+
+/****************  Suche **************/
+
+
+function $(id) {
+	return getEl(id);
+}
+
+function clickShowText(text) {
+	$('jscontent').innerHTML = text;
+}
+
+function $(i) {
+	return getEl(i);
+}
+
+function hoverInDe(id) {
+	$('layerImageDe').src = extensionPath + 'res/images/imagemap/' + id + '.gif';
+}
+
+function hoverOutDe(id) {
+	$('layerImageDe').src = extensionPath + 'res/images/imagemap/blank-54.gif';
+}
+
+function hoverInAt(id) {
+	$('layerImageAt').src = extensionPath + 'res/images/imagemap/' + id + '.gif';
+}
+
+function hoverOutAt(id) {
+	$('layerImageAt').src = extensionPath + 'res/images/imagemap/blank-13.gif';
+}
+
+function highlightZone(zone) {
+	if (zone && typeof id != 'undefined') {
+		$('layerImageDe').src = extensionPath + 'res/images/imagemap/' + id + '.gif';
+		//alert(extensionPath + 'res/images/imagemap/' + id + '.gif');
+	}
+}
+
+
+function selectSection(selectObj) {
+	//alert(selectObj.options[selectObj.selectedIndex].value);
+  const textfield = getEl('txtsearch');
+	v = selectObj.options[selectObj.selectedIndex].value;
+	f = getEl('searchform');
+	f.action = '/' + v + '.html';
+	if (v === 'radtouren' || v === 'angebotssuche') {
+		textfield.name = 'tx_ndhbiketours_pi2[sword]';
+	}
+	if (v === 'shop-radwanderkarten') {
+		textfield.name = 'swords';
+		f.action = '/shop-radwanderkarten.html';
+	}
+	if (v === 'suche') {
+		textfield.name = 'tx_indexedsearch_pi2[search][sword]';
+		f.action = '/suche.html?tx_indexedsearch_pi2[Baction]=search'
+	}
+
+}
+
+function submitSearch() {
+	s = getEl('sectionSelect');
+	v = s.options[s.selectedIndex].value;
+	if (v === '---') {
+		alert('Bitte wählen Sie einen Suchbereich aus');
+		return false;
+	}
+	if (textfield.value === '' || textfield.value === 'Begriff eingeben') {
+		alert('Bitte geben Sie einen Suchbegriff ein');
+		return false;
+	}
+	f = getEl('searchform');
+	return true;
+}
+
+
+
+//################### Typo3 Javscript ######################
+
+// browserName = navigator.appName;
+// browserVer = parseInt(navigator.appVersion);
+// var msie4 = (browserName == "Microsoft Internet Explorer" && browserVer >= 4);
+// if ((browserName == "Netscape" && browserVer >= 3) || msie4 || browserName == "Konqueror") {
+// 	version = "n3";
+// } else {
+// 	version = "n2";
+// }
+// // Blurring links:
+// function blurLink(theObject) {  //
+// 	if (msie4) {
+// 		theObject.blur();
+// 	}
+// }
+
+
+//############# Tooltips #############################
+
+wmtt = null;
+var x = 0;
+var y = 0;
+document.onmousemove = updateWMTT;
+
+function updateWMTT(e) {
+	x = (document.all) ? window.event.x + document.body.scrollLeft : e.pageX;
+	y = (document.all) ? window.event.y + document.body.scrollTop : e.pageY;
+	//alert("Scroll: " + document.body.scrollTop);
+	if (wmtt != null) {
+		wmtt.style.left = (x + 20) + "px";
+		wmtt.style.top = (y - 90) + "px";
+	}
+}
+
+function showWMTT(id) {
+	wmtt = getEl(id);
+	wmtt.style.left = (x + 20) + "px";
+	wmtt.style.top = (y - 90) + "px"
+	wmtt.style.display = "block";
+	//alert(" x: "  + x + " y: " + y + "Scroll: " + document.body.scrollTop);
+
+}
+
+function hideWMTT() {
+	wmtt.style.display = "none";
+}
+
+//############ Formular prüfen ######################
+
+function checkAGBConfirm() {
+	if(!document.getElementById('acceptAGBCheckbox').checked) {
+		alert('Bitte akzeptieren Sie die Nutzungsbedingungen');
+		return false;
+	} else {
+		return true;
+	}
+}
+
+
+function order_formcheck() {
+	if (!document['infoform']['recs[personinfo][agb]'].checked) {
+		alert("Sie müssen die Geschäftsbedingungen akzeptieren!");
+		return false;
+	}
+	return formCheck('infoform',
+					 'recs[personinfo][name],Name,text,1',
+					 'recs[personinfo][address],Straße/Haus-Nr,,1',
+					 'recs[personinfo][zip],Postleitzahl,plz,1', 'recs[personinfo][city],Ort,,1',
+					 'recs[personinfo][telephone],Telefon,telefon,1',
+					 'recs[personinfo][email],E-mail,e-mail,1');
+}
+
+
+function touradminFormCheck() {
+
+	tourtype_checked = false;
+	if (document['tx_ndhbiketours_pi1_form']['tx_ndhbiketours_pi1[country]'].value == 'select' && document['tx_ndhbiketours_pi1_form']['tx_ndhbiketours_pi1[other_country]'].value.length < 1 ) {
+		alert('Bitte wählen Sie ein Land aus');
+		document['tx_ndhbiketours_pi1_form']['tx_ndhbiketours_pi1[country]'].focus();
+		return false;
+	}
+	for (i = 1; i < 20; i++) {
+		if (document['tx_ndhbiketours_pi1_form']['tx_ndhbiketours_pi1[tourtype' + i + ']'] !== undefined &&
+			document['tx_ndhbiketours_pi1_form']['tx_ndhbiketours_pi1[tourtype' + i + ']'].checked == true) {
+			tourtype_checked = true;
+		}
+	}
+	if (!tourtype_checked) {
+		//&& document['tx_ndhbiketours_pi1_form']['tx_ndhfeedit_pi1[tourtype_other]'].value==""){
+		alert("Bitte mindestens ein Kriterium für die Tour angeben");
+		document['tx_ndhbiketours_pi1_form']['tx_ndhbiketours_pi1[tourtype1]'].focus();
+		return false;
+	}
+	biketype_checked = false;
+	bike_typearr = new Array('ttr', 'mtb', 'rr', 'ek');
+	for (i = 0; i < bike_typearr.length; i++) {
+		if (document['tx_ndhbiketours_pi1_form']['tx_ndhbiketours_pi1[' + bike_typearr[i] + ']'] !== 'undefined' &&
+			document['tx_ndhbiketours_pi1_form']['tx_ndhbiketours_pi1[' + bike_typearr[i] + ']'].checked == true) {
+			biketype_checked = true;
+		}
+	}
+	if (!biketype_checked) {
+		alert("Bitte mindestens einen Fahrradtyp ankreuzen, für den die Tour geeignet ist");
+		document['tx_ndhbiketours_pi1_form']['tx_ndhbiketours_pi1[' + bike_typearr[0] + ']'].focus();
+		return false;
+	}
+	if (document['tx_ndhbiketours_pi1_form']['tx_ndhbiketours_pi1[length]'].value.length < 2) {
+		alert("Bitte die ungefähre Länge der Tour angeben");
+		return false;
+	}
+	return true;
+}
+var feld_arr, namen_arr, krit1_arr, formName;
+//hier können die Dialoge an Sprache angepasst werden
+// z.B. var dialog_1 = "<?php echo $lang["dialog_1"] ?>";
+var dialog_1 = "Sie haben im Feld '{fieldname}' nichts eingetragen!";
+var dialog_2 = "Ungültige Angabe im Feld '{fieldname}'!";
+var dialog_3 = "Bitte {fieldname} auswählen!";
+var dialog_4 = "Bitte im Feld '{fieldname}' nur Zahlen eintragen (Ziffern 0-9)!";
+
+
+function formCheck() {
+	feld_arr = [];
+	namen_arr = [];
+	krit_arr = [];
+	fill_arr = [];
+	form = formCheck.arguments[0];
+	for (k = 1; k < formCheck.arguments.length; k++) {
+		temp_arr = formCheck.arguments[k].split(',');
+		feld_arr.push(temp_arr[0]);
+		if (temp_arr.length === 3) {
+			namen_arr.push(temp_arr[0]);
+			krit_arr.push(temp_arr[1]);
+			fill_arr.push(temp_arr[2]);
+		}
+		else {
+			namen_arr.push(temp_arr[1]);
+			krit_arr.push(temp_arr[2]);
+			fill_arr.push(temp_arr[3]);
+		}
+	}
+	for (i = 0; i < feld_arr.length; i++) {
+		aktField = document[form][feld_arr[i]];
+		//alert(feld_arr[i]);
+		if (typeof aktField.length != 'undefined' && (aktField[0].type === "checkbox" || aktField[0].type === "radio")) {
+			aktWert = aktField[0].value;
+		}
+		else aktWert = trim(aktField.value);
+		if (fill_arr[i] == 1) {
+			if (aktWert == "") {
+				dialog(namen_arr[i], 'leer');
+				aktField.focus();
+				return false;
+			}
+
+		}
+		//alert(namen_arr[i] + " Krit: " + krit_arr[i] + " Wert: " + aktWert);
+		if (krit_arr[i] == "number") {
+			for (var j = 0; j < aktWert.length - 1; j++) {
+				var ch = aktWert.substring(j, j + 1);
+				if (isNaN(aktWert) && ch != "." && ch != "," && ch != " ") {
+					dialog(namen_arr[i], 'noNr');
+					aktField.focus();
+					return false;
+				}
+			}
+		}
+		if (krit_arr[i] == "text") {
+			for (j = 0; j < aktWert.length; j++) {
+				cv = aktWert.charCodeAt(j);
+				if (cv == 45 || // Bindestrich
+					cv == 46 || // Punkt
+					cv == 38 || // Apostroph
+					cv == 32 || // Leerzeichen
+					(cv > 64 && cv < 91) || //Großbuchstaben
+					(cv > 96 && cv < 123) || //Kleinbuchstaben
+					(cv > 192 && cv < 255)) { //Umlaute etc.
+					// do nothing
+				}
+				else {
+					dialog(namen_arr[i], 'text');
+					return false;
+				}
+			}
+		}
+		if (krit_arr[i] == "telefon") {
+			if (aktWert.indexOf("-") > 0) {
+				aktWert_arr = aktWert.split("-");
+			}
+			else
+				if (aktWert.indexOf("/") > 0) {
+					aktWert_arr = aktWert.split("/");
+				}
+				else
+					if (aktWert.indexOf("+") == 0) {
+						aktWert_arr = new Array(aktWert.substring(1));
+					}
+					else aktWert_arr = new Array(aktWert);
+			for (z = 0; z < aktWert_arr.length; z++) {
+				temp = trim(aktWert_arr[z]);
+				if (isNaN(temp)) {
+					dialog(namen_arr[i], 'noNr');
+					return false;
+				}
+			}
+		}
+		if (krit_arr[i] == "e-mail" && aktWert != "") { //falls eine E-mail-Adresse eingetragen ist,
+			//muss sie gültig sein
+			if (!aktWert.match(/^[a-zA-Z0-9_\.-]{2,}@[a-z0-9-]{3,}\.[a-z]{2,4}|museum$/)) {
+				dialog(namen_arr[i], 'text');
+				return false;
+			}
+		}
+		if (krit_arr[i].indexOf('selected_isNot') == 0) {
+			var w = krit_arr[i].split('_');
+			if (aktWert == w[2]) {
+				dialog(namen_arr[i], 'choice');
+				return false;
+			}
+		}
+		if (krit_arr[i] == 'checked') {
+			isEmpty = true;
+			for (z = 0; z < aktField.length; z++) {
+				if (aktField[z].checked)isEmpty = false;
+			}
+			if (isEmpty) {
+				dialog(namen_arr[i], 'choice');
+				return false;
+			}
+		}
+		if (krit_arr[i] == 'plz') {
+			if (typeof plz_length == 'undefined') {
+				plz_length = 5;
+			}
+			if (getEl('countrySelector')) {
+				if (getEl('countrySelector').value == 'DEU') {
+					plz_length = 5;
+				} else if (getEl('countrySelector').value == 'AUT' || getEl('countrySelector').value == 'CHE' ) {
+					plz_length = 4;
+				} else {
+					plz_length = null;
+				}
+			}
+			if (isNaN(aktWert) || (plz_length && aktWert.length != plz_length)) {
+				dialog(namen_arr[i], 'text');
+				return false;
+			}
+		}
+	}
+}
+
+
+function trim(s) {
+	if (s.length > 0) {
+		while (s.indexOf(' ') == 0) {
+			s = s.substring(1);
+		}
+		while (s.lastIndexOf(' ') == s.length - 1) {
+			s = s.substring(0, s.length - 1);
+		}
+	}
+	return s;
+}
+
+function dialog(feldname, fehler) {
+	if (fehler == "leer") {
+		d = dialog_1.split('{fieldname}');
+	}
+	if (fehler == "text") {
+		d = dialog_2.split('{fieldname}');
+	}
+	if (fehler === "choice") {
+		d = dialog_3.split('{fieldname}');
+	}
+	if (fehler === "noNr") {
+		d = dialog_4.split('{fieldname}');
+	}
+	alert(d[0] + feldname + d[1]);
+}
+
+
+//################### Map Image Pop-Up #################################
+
+var f;
+var mapImageWidth;
+var mapImageHeight;
+var zoomSteps = 0;
+
+function map_image(text, imglink, width, height) {
+	mapImageWidth = width - 90;
+	mapImageHeight = height - 150;
+	//alert('http://' + window.location.hostname + '/'+ imglink);
+	f = window.open('', '', 'width=' + width + ',height=' + height + ',left=0,top=0,scrollbars=1,resizable=yes');
+	f.document.write('<html><head><link rel="stylesheet" type="text/css" href="/typo3conf/ext/website/Resources/Public/css/ndhbiketours.css" media="screen" /></head><body style="font-family:Arial;font-weight:bold"><div id="imgZoomWrapper"><img src="/typo3conf/ext/website/Resources/Public/Images/lupe_plus.gif" onclick="opener.zoomImageIn(this)" alt="Zum Vergrößern hier klicken" id="imgLupePlus"> <img style="display:none"  id="imgLupeMinus" src="/typo3conf/ext/website/Resources/Public/Images/lupe_minus.gif" onclick="opener.zoomImageOut(this)" alt="Zum Vergrößern hier klicken" ></div>' + text + '<br /><br /><img id="mapImage" src="/' + imglink + '" border="1"/><br /><br /><a href="#" onclick="window.close()" style="color:#666;text-decoration:none">Fenster schlie&szlig;en</a> &nbsp;</body></html>');
+	f.document.close();
+}
+
+function zoomImageIn(linkObj) {
+	zoomSteps++;
+	if (zoomSteps == 1) {
+		f.document.getElementById('imgLupeMinus').style.display = '';
+	}
+	var i = f.document.getElementById('mapImage');
+	var hDiff = Math.round(mapImageHeight / 4);
+	var wDiff = Math.round(mapImageWidth / 4);
+	f.resizeBy(wDiff, hDiff);
+	mapImageWidth += wDiff;
+	mapImageHeight += hDiff;
+	i.style.width = mapImageWidth;
+	i.style.height = mapImageHeight;
+	f.focus();
+}
+
+function zoomImageOut(linkObj) {
+	zoomSteps--;
+	var i = f.document.getElementById('mapImage');
+	var hDiff = Math.round(mapImageHeight / 5);
+	var wDiff = Math.round(mapImageWidth / 5);
+	f.resizeBy(-wDiff, -hDiff);
+	mapImageWidth -= wDiff;
+	mapImageHeight -= hDiff;
+	i.style.width = mapImageWidth;
+	i.style.height = mapImageHeight;
+	if (zoomSteps == 0) {
+		f.document.getElementById('imgLupeMinus').style.display = 'none';
+	}
+	f.focus();
+}
+
+//################ Country/Region Selector ################################
+
+// var zone = {};
+// zone['DEU'] = ':Bitte wählen,BAW:Baden-Württemberg,BAY:Bayern,BER:Berlin,BRG:Brandenburg,BRE:Bremen,HAM:Hamburg,HES:Hessen,MEC:Mecklenburg-Vorpommern,NDS:Niedersachsen,NRW:Nordrhein-Westfalen,RHE:Rheinland-Pfalz,SAR:Saarland,SAS:Sachsen,SAC:Sachsen-Anhalt,SCN:Schleswig-Holstein,THE:Thüringen';
+//
+// zone['CHE'] = ':Bitte wählen,AG:Aargau,AR:Appenzell Ausserrhoden,AI:Appenzell Innerrhoden,BL:Basel-Landschaft,BS:Basel-Stadt,BE:Bern,FR:Freiburg,GE:Genf,GL:Glarus,GR:Graubünden,JU:Jura,LU:Luzern,NE:Neuenburg,NW:Nidwalden,OW:Obwalden,SH:Schaffhausen,SZ:Schwyz,SO:Solothurn,SG:St. Gallen,TI:Tessin,TG:Thurgau,UR:Uri,VD:Waadt,VS:Wallis,ZG:Zug,ZH:Zürich';
+//
+// zone['AUT'] = ':Bitte wählen,BL:Burgenland,KN:Kärnten,NO:Niederösterreich,OO:Oberösterreich,SB:Salzburg,ST:Steiermark,TI:Tirol,VB:Voralberg,WI:Wien';
+//
+// zone['ITA'] = ':Bitte wählen,Abruzzen,Aostatal,Apulien,Basilicata,Emilia-Romagna,Friaul-Julisch-Venetien,Kalabrien,Kampanien,Latium,Ligurien,Lombardei,Marken,Molise,Piemont,Sardinien,Sizilien,Toskana,Trentino-Südtirol,Umbrien,Venetien';
+//
+// zone['ESP'] = ':Bitte wählen,Andalusien,Aragon,Asturias,Balearen,Baskenland,Cantabria,Castilla - La Mancha,Castilla - Leon,Cataluna,Extremadura,Galicia,Kanaren,Madrid,Murcia,Navarra,Rioja,Valencia';
+//
+// zone['PRT'] = ':Bitte wählen,Alentejo,Algarve,Zentralportugal,Lissabon und Tejotal,Nordportugal,Azoren,Madeira';
+//
+// zone['SWE'] = ':Bitte wählen,Göteborg,Malmö,Mittelschweden,Nordschweden,Ostschweden,Stockholm,Südschweden,Westschweden';
+//
+// zone['FRA'] = ':Bitte wählen,Aquitanien,Auvergne,Basse-Normandie,Bretagne,Burgund,Centre,Champagne-Ardenne,Elsass,Franche-Comté,Haute-Normandie,Ile-de-France,Korsika,Languedoc-Roussillon,Limousin,Lothringen ,Midi-Pyrénées,Nord-Pas-de-Calais,Pays de la Loire,Picardie,Poitou-Charentes,Provence-Alpes-Cote d\'Azur,Rhône-Alpes';
+//
+// zone['GRC'] = ':Bitte wählen,Attika,Epirus,Ionische Inseln,Kreta,Nördliche Ägäis,Ostmazedonien und Thrakien,Peloponnes,Südliche Ägäis,Thessalien ,Westgriechenland,Westmazedonien,Zentralgriechenland,Zentralmazedonien';
+//
+// zone['GBR'] = ':Bitte wählen,England,Nordirland,Schottland,Wales';
+
+var zone = {
+	"DEU": [
+		{0: "Bitte wählen"},
+		{80: "Baden-Württemberg"},
+		{81: "Bayern"},
+		{82: "Berlin"},
+		{83: "Brandenburg"},
+		{84: "Bremen"},
+		{85: "Hamburg"},
+		{86: "Hessen"},
+		{87: "Mecklenburg-Vorpommern"},
+		{79: "Niedersachsen"},
+		{88: "Nordrhein-Westfalen"},
+		{89: "Rheinland-Pfalz"},
+		{90: "Saarland"},
+		{91: "Sachsen"},
+		{92: "Sachsen-Anhalt"},
+		{93: "Schleswig-Holstein"},
+		{94: "Thüringen"}],
+	"ITA": [
+		{0: "Bitte wählen"},
+		{222: "Abruzzen"},
+		{224: "Aostatal"},
+		{226: "Apulien"},
+		{228: "Basilicata"},
+		{230: "Emilia-Romagna"},
+		{232: "Friaul-Julisch-Venetien"},
+		{235: "Kalabrien"},
+		{237: "Kampanien"},
+		{239: "Latium"},
+		{241: "Ligurien"},
+		{223: "Lombardei"},
+		{225: "Marken"},
+		{227: "Molise"},
+		{229: "Piemont"},
+		{231: "Sardinien"},
+		{234: "Sizilien"},
+		{236: "Toskana"},
+		{238: "Trentino-Südtirol"},
+		{240: "Umbrien"},
+		{233: "Venetien"}
+	],
+	"FRA": [
+		{0: "Bitte wählen"},
+		{251:"Aquitanien"},
+		{252:"Auvergne"},
+		{253:"Basse-Normandie"},
+		{254:"Bretagne"},
+		{255:"Burgund"},
+		{256:"Centre"},
+		{257:"Champagne-Ardenne"},
+		{258:"Elsass"},
+		{259:"Franche-Comté"},
+		{260:"Haute-Normandie"},
+		{261:"Ile-de-France"},
+		{262:"Korsika"},
+		{263:"Languedoc-Roussillon"},
+		{264:"Limousin"},
+		{265:"Lothringen"},
+		{266:"Midi-Pyrénées"},
+		{267:"Nord-Pas-de-Calais"},
+		{268:"Pays de la Loire"},
+		{269:"Picardie"},
+		{270:"Poitou-Charentes"},
+		{271:"Provence-Alpes-Cote d'Azur"},
+		{272:"Rhône-Alpes"}],
+	"ESP": [
+		{0: "Bitte wählen"},
+		{130: "Andalusien"},
+		{131: "Aragon"},
+		{132: "Asturias"},
+		{133: "Balearen"},
+		{134: "Baskenland"},
+		{135: "Cantabria"},
+		{136: "Castilla - La Mancha"},
+		{137: "Castilla - Leon"},
+		{138: "Cataluña"},
+		{139: "Extremadura"},
+		{140: "Galicia"},
+		{141: "Kanaren"},
+		{142: "Madrid"},
+		{143: "Murcia"},
+		{144: "Navarra"},
+		{145: "Rioja"},
+		{146: "Valencia"}],
+	"CHE": [
+		{0: "Bitte wählen"},
+		{104: "Aargau"},
+		{105: "Appenzell Innerrhoden"},
+		{106: "Appenzell Ausserrhoden"},
+		{107: "Bern"},
+		{108: "Basel-Landschaft"},
+		{109: "Basel-Stadt"},
+		{110: "Freiburg"},
+		{111: "Genf"},
+		{112: "Glarus"},
+		{113: "Graubünden"},
+		{114: "Jura"},
+		{115: "Luzern"},
+		{116: "Neuenburg"},
+		{117: "Nidwalden"},
+		{118: "Obwalden"},
+		{119: "St. Gallen"},
+		{120: "Schaffhausen"},
+		{121: "Solothurn"},
+		{122: "Schwyz"},
+		{123: "Thurgau"},
+		{124: "Tessin"},
+		{125: "Uri"},
+		{126: "Waadt"},
+		{127: "Wallis"},
+		{128: "Zug"},
+		{129: "Zürich"}],
+	"GRC": [
+		{0: "Bitte wählen"},
+		{273: "Attika"},
+		{274: "Epirus"},
+		{275: "Ionische Inseln"},
+		{276: "Kreta"},
+		{277: "Nördliche Ägäis"},
+		{278: "Ostmazedonien und Thrakien"},
+		{279: "Peloponnes"},
+		{280: "Südliche Ägäis"},
+		{281: "Thessalien"},
+		{282: "Westgriechenland"},
+		{283: "Westmazedonien"},
+		{284: "Zentralgriechenland"},
+		{285: "Zentralmazedonien"}],
+	"GBR": [
+		{0: "Bitte wählen"},
+		{286: "England"},
+		{287: "Nordirland"},
+		{288: "Schottland"},
+		{289: "Wales"}],
+	"SWE": [
+		{0: "Bitte wählen"},
+		{249: "Göteborg"},
+		{250: "Malmö"},
+		{244: "Mittelschweden"},
+		{243: "Nordschweden"},
+		{245: "Ostschweden"},
+		{248: "Stockholm"},
+		{246: "Südschweden"},
+		{247: "Westschweden"}
+		],
+	"AUT": [
+		{0: "Bitte wählen"},
+		{102: "Burgenland"},
+		{99: "Kärnten"},
+		{96: "Niederösterreich"},
+		{97: "Oberösterreich"},
+		{98: "Salzburg"},
+		{100: "Steiermark"},
+		{101: "Tirol"},
+		{103: "Voralberg"},
+		{95: "Wien"}],
+	"PRT": [
+		{0: "Bitte wählen"},
+		{290: "Alentejo"},
+		{291: "Algarve"},
+		{295: "Azoren"},
+		{293: "Lissabon und Tejotal"},
+		{296: "Madeira"},
+		{294: "Nordportugal"},
+		{292: "Zentralportugal"}
+	]
+};
+
+// Touren Admin
+function ndhOnChange(selector, val) {
+	el = getEl('zone_select');
+	if (zone[val] != undefined) {
+		el.innerHTML = '<select name="tx_ndhbiketours_pi1[zone]" >' + buildZoneSelectOptions(zone[val]) + '</select>';
+		if (selectedZoneUid.length) {
+			var regionOption = document.querySelectorAll('option[value="' + selectedZoneUid + '"]');
+			if (regionOption.length) {
+				document.querySelectorAll('option[value="' + selectedZoneUid + '"]')[0].setAttribute('selected','selected');
+			}
+		}
+	}
+	else
+		if (val === "Other") {
+			el.innerHTML = "Bitte das Land hier eingeben: <input type='text' name='tx_ndhbiketours_pi1[other_country]' />";
+		}
+		else {
+			el.innerHTML = "Keine Regionen verfügbar";
+		}
+}
+
+// searchForm
+function setRegion(val) {
+	el = getEl('zone_select');
+	if (zone[val] !== undefined) {
+		el.innerHTML = '<select name="tx_ndhbiketours_pi2[zone]" >' + buildZoneSelectOptions(zone[val]) + '</select>';
+	}
+	else if (val === "Other") {
+		el.innerHTML = 'Bitte das Land hier eingeben: <input type=\'text\' name=\'tx_ndhbiketours_pi2[other_country]\' />';
+	}
+	else {
+		el.innerHTML = "Keine Regionen verfügbar";
+	}
+}
+
+function buildZoneSelectOptions(zones) {
+	var options = '';
+	for (i = 0; i < zones.length; i++) {
+		for (var key in zones[i]) {
+			if (Object.prototype.hasOwnProperty.call(zones[i], key)) {
+				options += '<option value="' + key + '">' + zones[i][key] + '</option>';
+			}
+		}
+	}
+	return options;
+}
+
+
+
+
+
+//################ focus in formfields ################################
+
+function setFocus(id) {
+	if (getEl(id) && id !== "sword") {
+		el = getEl(id);
+		el.focus();
+	}
+	else
+		if (document.getElementsByName(id)) {
+			el = document.getElementsByName(id);
+			if (el[1] !== undefined){
+			  el[1].focus();
+      }
+			else
+				if (el[0] !== undefined){
+				  el[0].focus();
+        }
+			//alert(el.length);
+		}
+}
+
+var xmlHttp = null;
+var isCounted = false;
+
+function xmlHttpInstance() {
+	// Mozilla, Opera, Safari sowie Internet Explorer 7
+	if (typeof XMLHttpRequest != 'undefined') {
+		xmlHttp = new XMLHttpRequest();
+	}
+	if (!xmlHttp) {
+		// Internet Explorer 6 und älter
+		try {
+			xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+		} catch (e) {
+			try {
+				xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+			} catch (e) {
+				xmlHttp = null;
+			}
+		}
+	}
+	return xmlHttp
+}
+/**
+ * Zählt Klicks auf Weiterleitungen
+ * @param int tourID
+ */
+
+function countRedirect(tourID) {
+	if (isCounted)return;
+	else isCounted = true;
+	//alert(tourID);
+	xmlHttp = xmlHttpInstance();
+	if (xmlHttp) {
+		var url = 'https://' + window.location.host + '/index.php?tourID=' + tourID + '&eID=rrs';
+		xmlHttp.open('GET', url, true);
+		//xmlHttp.send('tourID=' + tourID + '&eID=rrs');
+		xmlHttp.onreadystatechange = function () {
+			if (xmlHttp.readyState === 4) {
+				//alert(xmlHttp.responseText);
+			}
+		};
+		xmlHttp.send(null);
+	}
+}
+
+/**
+ * Zählt Clicks auf Gastgeber
+ * @param int ID
+ */
+function countView(ID) {
+	xmlHttp = xmlHttpInstance();
+	if (xmlHttp) {
+		var url = 'https://' + window.location.host + '/index.php?gastgeber=' + ID + '&eID=rrs';
+		xmlHttp.open('GET', url, true);
+    // console.log('countView', ID)
+		xmlHttp.send(null);
+	}
+}
+
+
+/**
+ * Zählt Clicks auf externe urls
+ * @param int ID
+ */
+function countExternalClick(linkObj) {
+	xmlHttp = xmlHttpInstance();
+	if (xmlHttp) {
+		var url = 'https://' + window.location.host + '/index.php?external_url=' + linkObj + '&eID=rrs';
+		xmlHttp.open('GET', url, true);
+		xmlHttp.send(null);
+    // console.log('countExternalClick', linkObj)
+	}
+	return true;
+}
+
+
+var imgIndex = 1;
+var imgNames;
+var repeatInterval = 3000;
+var imgObj;
+
+function startfade() {
+	debug('startfade');
+	if (typeof document.getElementById('img1') != 'undefined') {
+		imgObj = document.getElementById('img1');
+		if (typeof imgNames == 'undefined' && typeof imgList != 'undefined') {
+            imgObj.src = imgObj.src.charAt(0) == '/' ? imgObj.src : '/' + imgObj.src;
+			imgNames = imgList.split(',');
+			for(var i = 0;i < imgNames.length;i++) {
+				imgNames[i] = imgNames[i].charAt(0) == '/' ? imgNames[i] : '/' + imgNames[i];
+			}
+			imgWrap = document.getElementById('startImgWrapper');
+			var imgSource = imgNames[0];
+			if(imgSource.indexOf('fileadmin') !== 0) {
+				var parts = imgSource.split('fileadmin');
+				imgSource = 'fileadmin' + parts[1];
+				imgNames[0] = imgSource;
+			}
+
+			imgNames[0] = imgNames[0].charAt(0) == '/' ? imgNames[0] : '/' + imgNames[0];
+			imgWrap.style.backgroundImage = 'url(' + imgNames[0] + ')';
+			imgObj.style.opacity = 0;
+			imgNames[imgIndex] = imgNames[imgIndex].charAt(0) == '/' ? imgNames[imgIndex] : '/' + imgNames[imgIndex];
+			imgObj.src = imgNames[imgIndex];
+            window.setTimeout(fade, repeatInterval);
+		}
+	}
+}
+
+function fade(step) {
+	var imgWrap = document.getElementById('startImgWrapper');
+
+
+	step = step || 0;
+
+	imgObj.style.opacity = step / 100;
+	imgObj.style.filter = "alpha(opacity=" + step + ")"; // IE
+
+	step = step + 1;
+
+	if (step <= 100) {
+		window.setTimeout(function () {
+			fade(step);
+		}, 40);
+	}
+	else {
+		imgWrap.style.backgroundImage = 'url(' + imgObj.src + ')';
+		window.setTimeout('resetOpacity()', 500);
+		imgIndex++;
+
+		if (imgIndex >= imgNames.length) {
+			imgIndex = 0;
+		}
+
+		window.setTimeout('fade()', repeatInterval);
+	}
+
+}
+
+function resetOpacity() {
+	imgObj.style.opacity = 0;
+	imgObj.style.filter = "alpha(opacity=0)"; // IE
+	imgObj.src = imgNames[imgIndex];
+}

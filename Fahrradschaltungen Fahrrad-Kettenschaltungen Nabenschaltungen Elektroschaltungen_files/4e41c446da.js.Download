@@ -1,0 +1,1 @@
+var adsenseElements = document.getElementsByClassName('adsbygoogle');for(var i = 0;i < adsenseElements.length;i++) {(adsbygoogle = window.adsbygoogle || []).push({});}

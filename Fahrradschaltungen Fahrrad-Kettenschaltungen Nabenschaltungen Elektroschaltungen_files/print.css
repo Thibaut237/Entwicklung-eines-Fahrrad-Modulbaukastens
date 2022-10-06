@@ -1,0 +1,55 @@
+#header,
+#navigation,
+#footer a,
+div.buttonWrapper,
+div.bottomButtons,
+#keywords_frontend,
+#rechteSpalte,
+#logo img{
+	display:none;
+}
+
+
+div.img_block {
+	float:right;
+	margin-right:-3em;
+}
+
+div.img_block img {
+	margin-bottom:1em;
+	margin-left:1em;
+}
+
+body {
+	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+	font-size:10pt;
+}
+
+h1 {
+	font-size:13pt;
+}
+
+h2 {
+	font-size:11pt;
+}
+
+h6 {
+	font-size:10pt;
+	margin:7px 0;
+}
+
+img {
+	display:none;
+}
+
+div.csc-frame-indent6633 {
+	display:none;
+}
+
+a {
+	color:#000;
+	text-decoration:none;
+}
+
+
+

@@ -1,0 +1,577 @@
+div#imgZoomWrapper {
+	text-align:right;
+	float:right;
+	width:200px;
+	padding-right:10px;
+}
+
+div#imgZoomWrapper img {
+	margin:5px;
+}
+
+table.merkzettel td {
+	height:30px;
+	font-size:1.1em;
+}
+
+table.merkzettel td h2 {
+	margin-top:15px;
+}
+
+div#navigation ul > li#merkzettel_link {
+	background-color:yellow;
+}
+
+div#tx_rrsgastgeberRegistrationForm fieldset  {
+	margin-bottom:2em;
+	border:none;
+	border-top:1px solid #BBB;
+	padding-top:2em;
+	margin-right:2em;
+}
+
+table.tx-ndhbiketours-pi2-infoTable th.firstCol{
+	width:15em;
+}
+
+table.tx-ndhbiketours-pi2-infoTable ul,ul.noMargin {
+	margin:0;
+	padding:0;
+	padding-left:1.3em;
+}
+
+ul.noMargin {
+
+	margin-bottom:1em;
+}
+
+ table.tx-ndhbiketours-pi2-infoTable li {
+	margin:0;
+	padding:0;
+}
+
+table.gastgeberRegistrationTourlist td,
+table.gastgeberRegistrationTourlist th {
+	border:1px solid #999;
+	padding:0.3em;
+}
+
+div#tx_rrsgastgeberRegistrationForm label#tx_rrsgastgeber_pi2_tx_rrsgastgeber_items_agb_label {
+	width:50em;
+}
+
+
+div#tx_rrsgastgeberRegistrationForm fieldset legend {
+	font-weight:bold;
+}
+
+div#tx_rrsgastgeberRegistrationForm .tx_formslib-label{
+	width: 16em;
+	padding-right:1em;
+}
+
+div#tx_rrsgastgeberRegistrationForm .tx_formslib_formelement {
+	margin-bottom:1.5em;
+}
+
+div#tx_rrsgastgeberRegistrationForm .tx_formslib_formelement span.postComment {
+	display:block;
+	clear:both;
+	padding-top:0.5em;
+	padding-left:2em;
+	width:50em;
+}
+
+textarea.tx_formslib-field {
+	margin-left:0;
+	background-color:#FFF;
+}
+
+
+/**********  Suche ***********/
+
+div.searchMenu {
+	margin-top:2em;
+	margin-bottom:2em;
+}
+
+div.searchMenu div.searchButton{
+	float:left;
+	width:21em;
+	height:6em;
+}
+
+
+/************  Trefferliste ************/
+
+
+span.noResultsHeadline {
+	color:red;
+	font-weight:bold;
+	border:2px solid red;
+	padding:0.2em;
+}
+
+span.tx-ndhbiketours-pi2-browsebox-strong {
+	font-weight:bold;
+	text-decoration:underline;
+}
+
+table.search_results td{
+	padding:0.3em 1.5em 0.3em 0;
+}
+
+#maincontent table.search_results  td a{
+	color:#000 !important;
+}
+
+table.country_list td{
+	padding:0.5em;
+	font-size:0.8em;
+}
+
+table.country_list[class] td{
+	font-size:1em;
+}
+
+table.country_list td a {
+	font-weight:bold;
+}
+
+tr.tx-ndhbiketours-pi2-listrow-header td{
+	border-bottom:1px solid #9f0200;
+	border-top:1px solid #9f0200;
+	font-weight:bold;
+}
+
+table.result_browser td a{
+	padding:0 0.5em;
+}
+
+table.result_browser td b {
+	border:1px solid #666;
+}
+
+ul#markerInfo{
+	float:right;
+	width:15em;
+	list-style:none;
+
+
+}
+
+li#orgMarker {
+	background-image:url(../Images/orgMarker.gif);
+	background-repeat:no-repeat;
+	padding-left:2em;
+	color:#AC8736;
+	line-height:1.5em;
+	margin-bottom:1em;
+}
+
+li#descMarker {
+	background-image:url(../Images/descMarker.gif);
+	background-repeat:no-repeat;
+	padding-left:2em;
+	line-height:1.5em;
+}
+
+
+/* ############  Startseiten Radreisen/Touren ##########*/
+
+/* vertikale Suchbuttons */
+
+
+body#page_radtour-verzeichn div.searchMenu div.searchButton,
+body#page_radreise div.searchMenu div.searchButton,
+body#page_radwandern div.searchMenu div.searchButton,
+body#page_radreisen div.searchMenu div.searchButton,
+body#page_radtouren-fahrradtouren div.searchMenu div.searchButton {
+ 	float:none;
+	width:17em;
+}
+
+body#page_radtour-verzeichn div.searchMenu,
+body#page_radreise div.searchMenu,
+body#page_radwandern div.searchMenu,
+body#page_radtouren-fahrradtouren div.searchMenu,
+body#page_radreisen div.searchMenu {
+	width:19em;
+	margin-top:0;
+    position: absolute;
+    right: 1rem;
+}
+
+body#page_radtouren-fahrradtouren div.searchMenu{
+	margin-top:5em !important;
+}
+
+body#page_radtour-verzeichn div.searchMenu div#extSearch,
+body#page_radreise div.searchMenu div#extSearch,
+body#page_radwandern div.searchMenu div#extSearch,
+body#page_radtouren-fahrradtouren div.searchMenu div#extSearch,
+body#page_radreisen div.searchMenu div#extSearch {
+  	margin-left:2em;
+}
+
+body#page_radtour-verzeichn div.csc-textpic-text ,
+body#page_radreise div.csc-textpic-text ,
+body#page_radwandern div.csc-textpic-text ,
+body#page_radtouren-fahrradtouren div.csc-textpic-text ,
+body#page_radreisen div.csc-textpic-text  {
+  	width:46em;
+}
+
+
+
+#rechteSpalte .content div.csc-textpic-text  {
+  	width:15em;
+}
+
+
+
+div.searchMenu  div.searchButton img {
+	width:17.08em;
+}
+
+div.searchMenu div.searchButton a.txt{
+	left:6em;
+	width:16em;
+	top:1.2em;
+}
+
+
+
+
+div.searchMenu div#extSearch a.txt{
+	left:3.7em;
+
+}
+
+div.searchform_header {
+	width:50em;
+}
+
+div.searchform_header h2 {
+	line-height:1.8em;
+}
+
+
+table.extended_search_form {
+	border:1px solid #c7a754;
+	border-collapse:collapse;
+	margin-right:1em;
+	width:97%;
+}
+
+table.extended_search_form td {
+	padding:0.3em;
+}
+
+table.extended_search_form tr.searchform_headerrow td {
+	background-color:#c7a754;
+	font-size:1.1em;
+	font-weight:bold;
+	color:#FFF;
+	padding:0.2em 0 0.2em 1em;
+	text-align:left;
+}
+
+
+#maincontent div.tx-ndhbiketours-pi2-list-latest a {
+	margin-bottom:0;
+	color:#000;
+	line-height:2.6em;
+	padding:0.5em 2.5em 1em 0;
+	/*
+	background-image:url(../Images/pfeil.gif);
+	background-repeat:no-repeat;
+	background-position:right top;
+	*/
+}
+
+div.tx-ndhbiketours-pi2-list-latest ul#markerInfo{
+	margin-top:0em;
+
+}
+
+#maincontent div.tx-ndhbiketours-pi2-list-latest a img {
+	padding-left:0.5em;
+
+}
+
+#maincontent div.tx-ndhbiketours-pi2-list-latest a.organizedTourItem,
+#maincontent table.search_results tr.organizedTourItem td a,
+#maincontent table.search_results tr.organizedTourItem td {
+	color:#AC8736 !important;
+}
+
+/**** Neueintragungen Buttons   ***/
+
+div.neuEingetragen {
+	height:22em;
+	width:15em;
+	float:left;
+	margin-left:3em;
+}
+
+div.neuEingetragen img {
+	width:15.8em;
+	height:22em;
+}
+
+div.neuEingetragen a {
+	text-decoration:none;
+	font-weight:bold;
+}
+
+div.neuEingetragen div {
+	margin-top:-8em;
+	margin-left:2em;
+}
+
+h3.listCountriesHeader {
+	margin-top:40px;
+}
+
+
+/********  Einzelansicht ******/
+
+
+/*******  Buttons ****/
+div.buttonWrapper {
+	top:15px;
+	right:-1rem;
+	width:20em;
+	position:absolute;
+    min-height: 50px;
+}
+
+div.bottomButtons {
+	margin-left:-0.8em;
+	clear:both;
+	margin-bottom:1em;
+
+}
+
+div.bottomButtons div.button {
+	float:left;
+
+}
+#maincontent a.button,
+#rechteSpalte a.button{
+	color: #000 !important;
+}
+
+a.button {
+    display: block;
+    background-repeat: no-repeat;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000 !important;
+    width: 140px;
+    padding-left: 60px;
+    font-size: 12px;
+    padding-top: 12px;
+    line-height: 17px;
+    min-height: 50px;
+    float: left;
+}
+
+
+div.gastgeberButton {
+	margin-left:-1.6em;
+}
+
+
+
+a.redirectButton {
+    background-image: url("../Images/weiterleitung.gif");
+}
+
+
+
+a.merkzettelButton {
+	background-image:url("../Images/merkzettel-button.gif");
+	padding-left:6.4em;
+	padding-top:1.2em;
+	width:11em;
+	cursor:pointer;
+	margin-right:2px;
+    background-position: 10px;
+}
+
+
+a.mapLinkButton {
+	background-image:url("../Images/karten.gif");
+	padding-left:6em;
+	padding-top:1.2em;
+	width:11em;
+	cursor:pointer;
+	margin-right:2px;
+}
+
+a.backButton {
+    background-image: url("../Images/zurueck.gif");
+}
+
+a.printButton {
+    background-image: url("../Images/drucken.gif");
+    padding-left: 70px;
+}
+
+/** einzeilige Button Label */
+
+a.detailsLinkButton,
+a.backButton,
+a.printButton{
+    padding-top: 20px;
+}
+
+a.detailsLinkButton {
+    background-image: url("../Images/reiseablauf.gif");
+    padding-left: 6em;
+}
+
+a.requestButton {
+    background-image: url('../Images/weiterleitung.gif');
+    text-align: center;
+}
+
+.bottomButtons a.detailsLinkButton {
+    margin-left: 20px;
+    min-height: 42px;
+}
+
+a.backButton.details {
+    padding-top: 12px;
+    padding-left: 65px;
+}
+
+.tx-ndhbiketours-pi2-singleView {
+    position: relative;
+}
+
+/** Info Tabelle  *****/
+
+table.tx-ndhbiketours-pi2-infoTable {
+	border-collapse:collapse;
+	padding:0;
+	width: 47em;
+	margin-top:1em;
+}
+
+table.tx-ndhbiketours-pi2-infoTable td b{
+	color: #9f0200;
+}
+
+table.tx-ndhbiketours-pi2-infoTable td {
+	border-bottom:1px solid #889900;
+	padding:0.2em;
+	padding-left:0;
+	line-height:1.5em;
+}
+
+div.tx-ndhbiketours-pi2-singleView table.gastgeberDetails{
+	width:100%;
+}
+
+div.tx-ndhbiketours-pi2-singleView table.gastgeberDetails td{
+	padding: 0.2em 0;
+	line-height:1.5em;
+	border:none;
+}
+
+div.tx-ndhbiketours-pi2-singleView table.gastgeberDetails td .hiddenDiv{
+	padding-bottom:0.2em;
+	border-bottom:1px solid #889900;
+	margin-bottom:0.3em;
+}
+
+div.tx-ndhbiketours-pi2 div.img_block {
+	float:right;
+	text-align:right;
+	padding-bottom:2em;
+}
+
+div.tx-ndhbiketours-pi2 div.img_block img {
+	margin-top:0.7em;
+	margin-left:0.5em;
+	margin-right:0;
+}
+
+h3.tx-ndhbiketours-pi2-singleViewField-header {
+	color: #9f0200;
+	margin:0;
+}
+
+h6.tx-ndhbiketours-pi2-singleViewField-header {
+	color: #9f0200;
+	margin:0;
+	font-size:1em;
+}
+
+#maincontent .tx-ndhbiketours-pi2-singleView p.tx-ndhbiketours-pi2-singleViewField-text {
+    clear: none;
+}
+
+div#keywords_frontend {
+	font-size:0.9em;
+	color:#666;
+	border-bottom:1px solid #DCB11F;
+	border-top:1px solid #DCB11F;
+	margin-bottom:1em;
+	font-family:Verdana, Geneva, Arial, Helvetica, sans-serif;
+	line-height:1.5em;
+	padding-bottom:0.8em;
+	padding-top:0.8em;
+}
+
+
+
+/**************  Details **************/
+
+table.detail_table td {
+	padding:1em;
+}
+
+/********  Anfragen ********************/
+
+table.request_form td {
+	border-bottom:1px solid #999;
+	padding:8px;
+}
+
+table.request_form tr.sectionLabel td {
+	background-color:#c7a754;
+	color: #FFF;
+	font-weight:bold;
+	padding:0.4em;
+
+}
+
+#page_request_form h1 {
+	font-size: 1em;
+}
+
+#page_request_form p {
+	font-size: 0.9em;
+	padding: 8px;
+}
+
+#formWrapper {
+	font-size: 0.75em;
+}
+
+table.request_form tr.special {
+       position: absolute;
+       top: -500px;
+}
+
+div.tx-felogin-pi1 fieldset {
+	border: none;
+}
+
+div.tx-felogin-pi1 legend {
+	display: none;
+}

@@ -1,0 +1,248 @@
+
+#flexform_hint {
+	background-color:#FFFF66;
+	padding:4px;
+	width:250px;
+	border:2px solid #990000;
+	font-size:0.75em;
+}
+
+.tx_formslib_formelement {
+	clear:both;
+	padding:5px;
+
+}
+
+.tx_formslib_formelement input{
+	margin-top:0;
+}
+
+.tx_formslib_formelement .clearStyle {
+	clear:both;
+}
+
+/*  checkboxes  */
+
+.tx_formslib-checkboxes input{
+	display:inline;
+	float:left;
+	border:none;
+	margin-left:2px;
+	margin-right:7px;
+	background-color:#FFF;
+}
+
+
+
+
+/* for Mozilla we need 3 pixel margin */
+
+.tx_formslib-checkboxes[class] input{
+	margin-top:3px;
+}
+
+/* IE 7 understands the attribute selector */
+
+.tx_formslib-checkboxes[className="tx_formslib-checkboxes"] input{
+	margin-top:0;
+}
+
+.tx_formslib-checkboxes label{
+	margin:0;
+	margin-right: .3em;
+	margin-bottom:15px;
+	width:110px;
+}
+
+.tx_formslib-checkboxes span.checkboxWrapper {
+	display:block;
+	float:left;
+	white-space:nowrap;
+	width:12em;
+	padding-bottom:1em;
+}
+
+span.tx_formslib-checkboxes {
+ 	padding:5px;
+	padding-bottom:20px;
+	margin-top:0;
+	display:block;
+	float:left;
+	background-color:#FFF;
+
+}
+
+/*  File upolad fields */
+
+div.tx_ndhformslib-groupFieldsWrapper{
+	float:left;
+}
+
+div.tx_ndhformslib_fileuploadWrapper{
+	display:block;
+	clear:both;
+	text-align:right;
+}
+
+div.tx_formslib-deleteImage{
+	margin-top:1em;
+}
+
+div.tx_formslib-deleteImage label{
+	text-align:left;
+	width:auto;
+	line-height:1.5em;
+}
+
+div.tx_formslib-deleteImage input.tx_formslib-checkbox{
+	float:none;
+	border:none;
+	background:none;
+}
+
+div.tx_ndhformslib_fileuploadWrapper input.tx_formslib-field{
+	margin-bottom:10px;
+	float:left;
+}
+
+
+/*   Buttons  */
+
+.tx_formslib-submitbuttons {
+	margin-left:350px;
+	padding:10px;
+}
+
+.tx_formslib-submitbuttons input{
+	margin:2px 6px;
+	border:2px solid #900;
+	color:#000;
+}
+
+
+
+textarea.tx_formslib-field {
+	margin-left:5px;
+	background-color:#EEE;
+}
+
+.tx_formslib-searchbuttons {
+	margin-left:300px;
+}
+
+.tx_formslib-searchbuttons input {
+	margin:2px 10px;
+	display:inline;
+}
+
+.tx_formslib-label{
+   float: left;
+   text-align: right;
+   width: 12em;
+   margin-right: .3em;
+   font-family:Arial,Verdana,  Helvetica, sans-serif;
+}
+
+.tx_formslib-label .icon-markup {
+    width: 2rem;
+    overflow: hidden;
+    display: inline-block;
+    position: absolute;
+    right: 7rem;
+}
+
+
+
+
+.hint {
+	padding-left:15px;
+	font-style:italic;
+}
+
+
+.tx_formslib-label-switched {
+	width:auto;
+}
+
+span.tx_formslib-field {
+	padding:2px;
+	color:#666;
+}
+
+.tx_formslib-field, .tx_formslib-select, .tx_formslib-checkbox, .tx_formslib-checkboxes, .disabled_field  {
+  float: left;
+  width: auto;
+  margin:0;
+  margin-right: .3em;
+  border:1px #A1916D solid;
+  background-color:#FFF;
+}
+
+
+.tx_ndhformslib_error{
+	color:red;
+}
+
+
+/*---------------------------*/
+/* CSS for drop down calendar */
+/*---------------------------*/
+.calendar
+{
+	display: none;
+}
+
+
+#calendarContainer
+{
+	position: absolute;
+	margin: 0px 2px 0px 2px;
+	width: 150px;
+	height: 180px;
+	border: 2px solid;
+	overflow: hidden;
+	background-color:#CC9900;
+	z-index:1;
+}
+.calTable
+{
+	border: 0px;
+	background-color: #FFFFFF;
+	font-size: 0.925em;
+	border-collapse:collapse;
+}
+
+.calTable td {
+	border:1px solid #CCC;
+	padding:0 2px;
+	text-align:center;
+	color:#999;
+}
+
+.calTable td:hover {
+	background-color: #FFCC00;
+}
+
+.calTable td a {
+	color:#990000;
+	text-decoration:none;
+
+}
+
+.calHeader
+{
+	border: 0px;
+	background-color: #990000;
+	color: #fff;
+	text-align:center;
+}
+
+.calHeader td:hover {
+	background-color:#900;
+}
+
+td.calHeader a
+{
+	color: #fff;
+}
+
